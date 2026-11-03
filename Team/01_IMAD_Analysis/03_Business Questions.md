@@ -1,8 +1,5 @@
-Étape 03 — Business Questions
-Projet : Flight Delay & Cancellation Analysis
-Module : Système d’Information Décisionnelle (SID)
-Responsable : IMAD — Analyse des besoins
-Statut : Proposition métier, à valider avec l’équipe et MORAD
+ Business Questions
+
 1. Objectif du document
 Ce document transforme les besoins décisionnels du projet Flight Delay & Cancellation Analysis en questions précises à traiter dans le Data Warehouse et le tableau de bord Power BI. Il ne présente pas de résultats calculés : ces résultats seront obtenus après le traitement et la validation des données.
 2. Contexte de l’étude
