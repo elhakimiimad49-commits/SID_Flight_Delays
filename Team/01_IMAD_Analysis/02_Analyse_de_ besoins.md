@@ -47,7 +47,7 @@ EF-04	Afficher les indicateurs globaux dans Power BI.	Must	Cartes KPI fonctionne
 EF-05	Filtrer par mois, compagnie et aéroport.	Must	Filtres cohérents.
 EF-06	Comparer retards et annulations par compagnie.	Must	Graphiques et volumes.
 EF-07	Afficher l’évolution temporelle des perturbations.	Must	Graphiques temporels.
-EF-08	Analyser les motifs d’annulation et causes de retard disponibles.	Must	Répartition par catégorie.
+EF-08 | Analyser les motifs d'annulation et les causes de retard lorsque les données correspondantes sont disponibles et exploitables. 
 EF-09	Proposer des interactions et détails supplémentaires.	Should	Navigation/infobulles.
 EF-10	Tester un scénario What-if descriptif.	Should	Simulation clairement indiquée.
 
