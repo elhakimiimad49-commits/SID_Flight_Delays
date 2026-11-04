@@ -14,17 +14,30 @@ Attention : les indicateurs de ponctualité portent sur un sous-ensemble des vol
 3. Tableau de synthèse des KPI
 Code	KPI	Définition / formule	Unité
 KPI-01	Total Flights	Nombre de vols programmés	vols
+
 KPI-02	Cancelled Flights	Nombre de lignes avec CANCELLED = 1	vols
+
 KPI-03	Diverted Flights	Nombre de lignes avec DIVERTED = 1	vols
+
 KPI-04	Eligible Arrival Flights	Nombre de vols admissibles à la ponctualité à l'arrivée	vols
+
 KPI-05	Delayed Arrival Flights	Vols admissibles avec ARRIVAL_DELAY >= 15	vols
+
 KPI-06	On-Time Arrival Flights	Vols admissibles avec ARRIVAL_DELAY < 15	vols
+
 KPI-07	Arrival Delay Rate	KPI-05 / KPI-04 × 100	%
+
 KPI-08	On-Time Arrival Rate (OTP)	KPI-06 / KPI-04 × 100	%
+
 KPI-09	Cancellation Rate	KPI-02 / KPI-01 × 100	%
+
 KPI-10	Average Arrival Delay	Moyenne de ARRIVAL_DELAY sur les vols admissibles	minutes
+
 KPI-11	Average Departure Delay	Moyenne de DEPARTURE_DELAY lorsque la valeur existe pour les vols non annulés	minutes
+
 KPI-12	Average Delay of Delayed Flights	Moyenne de ARRIVAL_DELAY sur les vols du KPI-05	minutes
+
+KPI-13	Diversion Rate	Diverted Flights / Total Flights × 100	%
 
 
 Condition de calcul : si le dénominateur vaut zéro, afficher « N/A », jamais 0 % arbitrairement. Pour KPI-11, les vols déroutés disposant d'une valeur de départ restent inclus ; cette règle doit être documentée dans le rapport.
