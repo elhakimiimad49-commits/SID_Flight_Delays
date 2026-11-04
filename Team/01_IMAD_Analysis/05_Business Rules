@@ -34,6 +34,7 @@ Code	Règle métier	Justification
 | BR-11 | Afficher le volume de vols avec les classements des compagnies et aéroports ; seuil minimum à fixer après profiling. | Éviter les classements trompeurs. |
 
 | BR-12 | Toute jointure avec les référentiels airlines/airports doit traiter et signaler les codes absents. | Éviter les pertes silencieuses. |
+| BR-13 | Vérifier la cohérence des valeurs CANCELLED et DIVERTED. Toute combinaison inattendue doit être signalée et examinée avant de produire des catégories exclusives de vols.|	Éviter les incohérences dans les indicateurs et la répartition des statuts.|
 4. Formules de référence
 Indicateur	Calcul / population
 
