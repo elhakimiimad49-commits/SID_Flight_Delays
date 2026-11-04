@@ -14,6 +14,7 @@ Colonnes attendues : YEAR, MONTH, DAY
 Analyse : Descriptive
 Visualisation proposée : Carte KPI + courbe mensuelle
 Disponibilité des données : À confirmer par MORAD.
+
 BQ-02 — Quel est le taux de ponctualité à l’arrivée ?
 Objectif : Évaluer la ponctualité globale.
 KPI / Mesure : On-Time Rate (%)
@@ -21,6 +22,7 @@ Colonnes attendues : ARRIVAL_DELAY, CANCELLED, DIVERTED
 Analyse : Descriptive
 Visualisation proposée : Carte KPI + tendance mensuelle
 Disponibilité des données : À confirmer par MORAD.
+
 BQ-03 — Quelles compagnies ont les taux de retard les plus élevés ?
 Objectif : Comparer les performances avec un classement équitable.
 KPI / Mesure : Delay Rate (%), Eligible Flights
@@ -28,6 +30,7 @@ Colonnes attendues : AIRLINE, ARRIVAL_DELAY, CANCELLED, DIVERTED
 Analyse : Comparative
 Visualisation proposée : Barres horizontales + nombre de vols
 Disponibilité des données : À confirmer par MORAD.
+
 BQ-04 — Quelles compagnies présentent les meilleures performances ?
 Objectif : Identifier les compagnies les plus ponctuelles.
 KPI / Mesure : On-Time Rate (%), Eligible Flights
@@ -35,13 +38,15 @@ Colonnes attendues : AIRLINE, ARRIVAL_DELAY, CANCELLED, DIVERTED
 Analyse : Comparative
 Visualisation proposée : Classement des compagnies
 Disponibilité des données : À confirmer par MORAD.
-BQ-05 — Quels aéroports sont les plus affectés par les retards ?
-Objectif : Détecter les aéroports à surveiller.
-KPI / Mesure : Delay Rate (%), Average Arrival Delay
-Colonnes attendues : ORIGIN_AIRPORT, DESTINATION_AIRPORT, ARRIVAL_DELAY, CANCELLED, DIVERTED
-Analyse : Géographique / comparative
-Visualisation proposée : Barres par aéroport + filtres origine/destination
-Disponibilité des données : À confirmer par MORAD.
+
+BQ-05 —Quels aéroports de destination présentent les taux de retard à l'arrivée les plus élevés ?
+Objectif : Comparer les performances des aéroports de destination selon le taux de retard à l'arrivée.
+KPI : Arrival Delay Rate (%), Eligible Arrival Flights.
+Colonnes attendues : DESTINATION_AIRPORT, ARRIVAL_DELAY, CANCELLED, DIVERTED.
+Analyse : Géographique / comparative.
+Visualisation : Graphique en barres par aéroport de destination, accompagné du volume des vols éligibles.
+
+Disponibilité : À confirmer par MORAD.
 BQ-06 — Comment la ponctualité évolue-t-elle selon les mois ?
 Objectif : Repérer des tendances saisonnières.
 KPI / Mesure : On-Time Rate (%), Average Arrival Delay
@@ -49,6 +54,7 @@ Colonnes attendues : YEAR, MONTH, ARRIVAL_DELAY, CANCELLED, DIVERTED
 Analyse : Temporelle
 Visualisation proposée : Courbe par mois
 Disponibilité des données : À confirmer par MORAD.
+
 BQ-07 — Quelles sont les principales causes des retards ?
 Objectif : Évaluer les contributions aux minutes de retard signalées.
 KPI / Mesure : Delay Minutes by Cause
@@ -56,6 +62,7 @@ Colonnes attendues : AIRLINE_DELAY, WEATHER_DELAY, AIR_SYSTEM_DELAY, SECURITY_DE
 Analyse : Causale descriptive
 Visualisation proposée : Barres par cause
 Disponibilité des données : À confirmer par MORAD.
+
 BQ-08 — Quelles sont les raisons les plus fréquentes d’annulation ?
 Objectif : Comprendre la répartition des annulations.
 KPI / Mesure : Cancelled Flights by Reason
@@ -63,6 +70,7 @@ Colonnes attendues : CANCELLED, CANCELLATION_REASON
 Analyse : Catégorielle
 Visualisation proposée : Barres A/B/C/D
 Disponibilité des données : À confirmer par MORAD.
+
 BQ-09 — À quels horaires de départ les retards sont-ils les plus fréquents ?
 Objectif : Étudier les créneaux horaires problématiques.
 KPI / Mesure : Delay Rate (%) by scheduled hour
@@ -70,6 +78,7 @@ Colonnes attendues : SCHEDULED_DEPARTURE, ARRIVAL_DELAY, CANCELLED, DIVERTED
 Analyse : Temporelle / comparative
 Visualisation proposée : Histogramme par tranche horaire
 Disponibilité des données : À confirmer par MORAD.
+
 BQ-10 — Quelle est la répartition des vols annulés et déroutés ?
 Objectif : Suivre les perturbations d’exploitation.
 KPI / Mesure : Cancellation Rate (%), Diversion Rate (%)
@@ -77,7 +86,9 @@ Colonnes attendues : CANCELLED, DIVERTED, YEAR, MONTH
 Analyse : Descriptive / temporelle
 Visualisation proposée : Cartes KPI + barres mensuelles
 Disponibilité des données : À confirmer par MORAD.
-5. Principes communs de calcul
+
+
+6. Principes communs de calcul
 - Un vol à l’arrivée est considéré comme retardé lorsque ARRIVAL_DELAY ≥ 15 minutes.
 - Pour les taux de ponctualité et de retard à l’arrivée, la population de référence proposée comprend les vols non annulés, non déroutés et disposant d’une valeur ARRIVAL_DELAY valide ; cette règle sera validée avec l’équipe.
 - Cancellation Rate = nombre de vols annulés / nombre de vols programmés × 100. Diversion Rate = nombre de vols déroutés / nombre de vols programmés × 100.
