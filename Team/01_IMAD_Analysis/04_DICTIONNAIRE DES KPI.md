@@ -65,14 +65,8 @@ Pourquoi les vols sont-ils annulés ?	Nombre d'annulations par cause	CANCELLATIO
 Quelles causes contribuent aux retards ?	Minutes attribuées par cause	Colonnes de causes de retard
 
 
-7. Contrôles à prévoir avant validation
-1. MORAD : vérifier colonnes, types, taux de NULL, statuts annulés/déroutés et cohérence des causes ; signaler les cas particuliers.
-2. IMAD + équipe : valider les définitions fonctionnelles et les populations admissibles.
-3. IMADEDDINE : appliquer les règles approuvées dans Talend et enregistrer les rejets / contrôles.
-4. AYOUB : construire des requêtes SQL de référence sur le Data Warehouse.
-5. ZIAD : vérifier que les mesures DAX correspondent aux résultats SQL.
-Test de cohérence indispensable : Eligible Arrival Flights = Delayed Arrival Flights + On-Time Arrival Flights ; et, lorsque KPI-04 > 0, Arrival Delay Rate + On-Time Arrival Rate = 100 % (hors écarts d'arrondi).
-8. Critères d'acceptation
+
+7. Critères d'acceptation
 Le dictionnaire sera validé lorsque chaque KPI a un nom, une définition, une population de calcul, une formule, une unité, des colonnes sources et une règle de traitement des valeurs manquantes. Les règles en attente de vérification seront explicitement confirmées avec MORAD avant la mise en production des calculs.
-9. Conclusion et suite
+8. Conclusion et suite
 Ce document constitue le référentiel fonctionnel commun des KPI pour les membres du groupe.
