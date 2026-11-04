@@ -1,0 +1,93 @@
+05 — Règles métier (Business Rules)
+
+1. Objectif du document
+Ce document définit les règles de gestion utilisées pour interpréter les vols et calculer les indicateurs de performance. Il constitue une référence commune pour l’analyse, la préparation des données, l’ETL et les tableaux de bord. Il ne présente aucun résultat mesuré sur le dataset.
+2. Périmètre et conventions
+- Périmètre : vols du dataset américain de 2015, selon les fichiers flights.csv, airlines.csv et airports.csv.
+- Grain de référence : un enregistrement de vol programmé, sous réserve de vérification de l’unicité des lignes.
+- Les noms de colonnes ci-dessous correspondent au dataset envisagé ; MORAD confirmera leur présence et leur type.
+- Un vol peut être ponctuel ou retardé à l’arrivée uniquement si une valeur ARRIVAL_DELAY exploitable existe et si le vol n’est ni annulé ni dérouté.
+3. Catalogue des règles métier
+Code	Règle métier	Justification
+
+
+| BR-01 | Total Flights = nombre de vols programmés enregistrés dans le périmètre retenu. | Définir le volume de référence. |
+
+| BR-02 | Cancelled Flight : CANCELLED = 1 ; les autres valeurs doivent être vérifiées. | Séparer annulations et vols opérés. |
+
+| BR-03 | Diverted Flight : DIVERTED = 1. | Isoler les vols déroutés. |
+
+| BR-04 | Vol éligible à la ponctualité : CANCELLED = 0, DIVERTED = 0 et ARRIVAL_DELAY non NULL. | Fixer un dénominateur cohérent. |
+
+| BR-05 | Delayed Arrival : vol éligible avec ARRIVAL_DELAY >= 15 minutes. | Définir le retard significatif. |
+
+| BR-06 | On-Time Arrival : vol éligible avec ARRIVAL_DELAY < 15 minutes. | Définir la ponctualité. |
+
+| BR-07 | Ne pas remplacer automatiquement les valeurs NULL de retard par zéro. | Éviter les indicateurs biaisés. |
+
+| BR-08 | Arrival Delay négatif = arrivée anticipée possible ; ne pas supprimer automatiquement. | Conserver l’information correcte. |
+
+| BR-09 | Taux d’annulation : vols annulés / vols programmés × 100. | Dénominateur stable. |
+
+| BR-10 | Delay Rate et On-Time Rate utilisent le même ensemble de vols éligibles. | Rendre les KPI comparables. |
+
+| BR-11 | Afficher le volume de vols avec les classements des compagnies et aéroports ; seuil minimum à fixer après profiling. | Éviter les classements trompeurs. |
+
+| BR-12 | Toute jointure avec les référentiels airlines/airports doit traiter et signaler les codes absents. | Éviter les pertes silencieuses. |
+4. Formules de référence
+Indicateur	Calcul / population
+
+
+| Eligible Flights | Nombre de vols respectant BR-04. |
+
+| Delayed Flights | Nombre de vols éligibles avec ARRIVAL_DELAY >= 15. |
+
+| On-Time Flights | Nombre de vols éligibles avec ARRIVAL_DELAY < 15. |
+
+| Delay Rate (%) | Delayed Flights / Eligible Flights × 100. |
+
+| On-Time Rate (%) | On-Time Flights / Eligible Flights × 100. |
+
+| Cancellation Rate (%) | Cancelled Flights / Total Flights × 100. |
+
+| Average Arrival Delay | Moyenne des ARRIVAL_DELAY valides pour les vols éligibles, valeurs négatives incluses. |
+
+| Average Departure Delay | Moyenne de DEPARTURE_DELAY pour observations valides ; population à documenter séparément. |
+
+Contrôle mathématique : sur une même sélection de vols éligibles, Delay Rate + On-Time Rate = 100 % (hors effets d’arrondi). Si Eligible Flights = 0, afficher N/A plutôt que diviser par zéro.
+5. Gestion des valeurs manquantes et cas particuliers
+Situation	Décision fonctionnelle
+
+
+| Vol annulé sans ARRIVAL_DELAY | Exclure des KPI d’arrivée ; conserver dans Total Flights et Cancellation Rate. |
+
+| Vol dérouté | Conserver dans Total Flights / Diverted Flights ; exclure de la ponctualité d’arrivée définie ici. |
+
+| ARRIVAL_DELAY NULL sur vol non annulé et non dérouté | Exclure provisoirement des KPI d’arrivée et signaler le cas pour investigation. |
+
+| Code aéroport absent du référentiel | Garder une trace des enregistrements ; décision de mapping à valider avant chargement définitif. |
+
+| Heures au format HHMM | Vérifier les valeurs, traiter les zéros initiaux et les exceptions avant conversion en heure. |
+
+| Valeur de retard très grande | Signaler comme valeur atypique ; ne supprimer qu’après justification. |
+6. Exemples pédagogiques (valeurs fictives)
+Exemple A : 100 vols programmés, dont 5 annulés, 3 déroutés et 2 vols restants avec ARRIVAL_DELAY manquant. Il reste 90 vols éligibles. Si 18 sont retardés (>= 15 min), Delay Rate = 18 / 90 × 100 = 20 % et On-Time Rate = 80 %. Cancellation Rate = 5 / 100 × 100 = 5 %.
+
+Exemple B : un vol avec ARRIVAL_DELAY = -7 minutes et sans annulation ni déroutement est considéré ponctuel (arrivée 7 minutes en avance).
+
+
+8. Points à confirmer avant validation finale
+- Présence, valeurs possibles et types des colonnes CANCELLED, DIVERTED, ARRIVAL_DELAY et DEPARTURE_DELAY.
+- Volume des valeurs manquantes dans les indicateurs concernés, notamment sur les vols non annulés.
+- Unicité effective des enregistrements de vol et clés utilisables.
+- Couverture des référentiels airlines.csv et airports.csv.
+- Seuil minimal de volume à utiliser pour les classements.
+- Périmètre détaillé des retards au départ et des causes de retard dans le KPI Dictionary.
+9. Critères d’acceptation
+- Chaque KPI possède une définition, une population et une règle de calcul cohérentes.
+- Les catégories annulé, dérouté, retardé et ponctuel ne sont pas confondues.
+- Les cas NULL et les valeurs négatives sont explicitement traités.
+- Les décisions à confirmer sont identifiées et attribuées à un responsable.
+- Les règles validées sont transmises à MORAD, RIDA, AYOUB, IMADEDDINE et ZIAD.
+10. Conclusion
+Ces règles métier structurent le futur système décisionnel et garantissent une interprétation commune des indicateurs. Elles pourront être ajustées après le contrôle de la qualité des données, avec validation collective et traçabilité des modifications.
