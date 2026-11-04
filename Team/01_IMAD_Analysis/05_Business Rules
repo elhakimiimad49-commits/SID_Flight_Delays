@@ -54,6 +54,8 @@ Indicateur	Calcul / population
 
 | Average Departure Delay | Moyenne de DEPARTURE_DELAY pour observations valides ; population à documenter séparément. |
 
+| Diversion Rate (%) |	Diverted Flights / Total Flights × 100. Si Total Flights = 0, afficher N/A. |
+
 Contrôle mathématique : sur une même sélection de vols éligibles, Delay Rate + On-Time Rate = 100 % (hors effets d’arrondi). Si Eligible Flights = 0, afficher N/A plutôt que diviser par zéro.
 5. Gestion des valeurs manquantes et cas particuliers
 Situation	Décision fonctionnelle
